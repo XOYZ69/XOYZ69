@@ -15,7 +15,7 @@ I'm a German guy who is addicted to programming and anime, trying to learn Japan
 I'm always open for contact so just write me :D
 
 [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?&logo=discord&logoColor=white&label=xoyz69)](#)
-[![E-Mail](https://img.shields.io/badge/Mail-blue.svg?&logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHN0cm9rZS13aWR0aD0iMS41IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgY29sb3I9IiMwMDAwMDAiPjxwYXRoIGQ9Ik03IDlMMTIgMTIuNUwxNyA5IiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjwvcGF0aD48cGF0aCBkPSJNMiAxN1Y3QzIgNS44OTU0MyAyLjg5NTQzIDUgNCA1SDIwQzIxLjEwNDYgNSAyMiA1Ljg5NTQzIDIyIDdWMTdDMjIgMTguMTA0NiAyMS4xMDQ2IDE5IDIwIDE5SDRDMi44OTU0MyAxOSAyIDE4LjEwNDYgMiAxN1oiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIxLjUiPjwvcGF0aD48L3N2Zz4=&logoColor=white&label=Send)](mailto:xoyz.productions@gmail.com)
+[![E-Mail](https://img.shields.io/badge/Mail-blue.svg?&logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHN0cm9rZS13aWR0aD0iMS41IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgY29sb3I9IiMwMDAwMDAiPjxwYXRoIGQ9Ik03IDlMMTIgMTIuNUwxNyA5IiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjwvcGF0aD48cGF0aCBkPSJNMiAxN1Y3QzIgNS44OTU0MyAyLjg5NTQzIDUgNCA1SDIwQzIxLjEwNDYgNSAyMiA1Ljg5NTQzIDIyIDdWMTdDMjIgMTguMTA0NiAyMS4xMDQ2IDE5IDIwIDE5SDRDMi44OTU0MyAxOSAyIDE4LjEwNDYgMiAxN1oiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIxLjUiPjwvcGF0aD48L3N2Zz4=&logoColor=white&label=Send)](mailto:xoyz@nyarch.de)
 
 ## `> user.get_techstack()`
 
@@ -38,28 +38,28 @@ The projects listed here are the ones I feel comfy with to share. Nevertheless d
 <div align="center">
   <div width="150px" style="float: left; margin: 10px;">
     <a href="https://github.com/XOYZ69/Yoshida">
-        <img src="https://raw.githubusercontent.com/XOYZ69/Yoshida/f2591e0aafc8267977745fabbbdb30368a7132ef/yoshida_icon.png" width="48" height="48" alt="Yoshida" />
+        <img src="https://raw.githubusercontent.com/XOYZ69/yoshida/refs/heads/master/logo.png" height="64" alt="Yoshida" />
       </a>
       <br>
-      Yoshida
+      Overcomplicated Card Creator - pretty proud of that one
       <br>
       <img src="https://img.shields.io/github/v/release/XOYZ69/Yoshida.svg?sort=semver">
   </div>
   <div width="150px" style="float: left; margin: 10px;">
     <a href="https://github.com/XOYZ69/school_reports">
-        <img src="https://github.com/XOYZ69/school_reports/blob/master/data/marketing/logo.png?raw=true" width="48" height="48" alt="school reports" />
+        <img src="https://github.com/XOYZ69/school_reports/blob/master/data/marketing/logo.png?raw=true" height="52" alt="school reports" />
       </a>
       <br>
-      school reports
+      Convert .json files into daily / weekly reports
       <br>
       <img src="https://img.shields.io/github/v/release/XOYZ69/school_reports.svg?sort=semver&display_name=release">
   </div>
   <div width="150px" style="float: left; margin: 10px;">
     <a href="https://github.com/XOYZ69/Benchmark-X">
-        <img src="https://cdn.icon-icons.com/icons2/41/PNG/128/SpeedTest_speedometer_6974.png" width="48" height="48" alt="Benchmark-X" />
+        <img src="https://cdn.icon-icons.com/icons2/41/PNG/128/SpeedTest_speedometer_6974.png" height="32" alt="Benchmark-X" />
       </a>
       <br>
-      Benchmark&#x2011;X
+      Didn't we all try to make a benchmark script at a certain point?
       <br>
       <img src="https://img.shields.io/github/v/release/XOYZ69/Benchmark-X.svg?sort=semver&display_name=release">
   </div>
