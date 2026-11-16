@@ -8,11 +8,11 @@
       "kind": "oss",
       "blurb": "Overcomplicated card creator: JSON designs with formulas, rendered to PNG, SVG or PDF.",
       "quip": "pretty proud of that one",
+      "featured": true,
       "lang": "Zig",
       "lang_color": "#EC915C",
       "version": "v0.8.0",
       "stage": "stable",
-      "featured": true,
       "mode": "dark"
     },
     {
@@ -21,11 +21,11 @@
       "kind": "oss",
       "blurb": "Overcomplicated card creator: JSON designs with formulas, rendered to PNG, SVG or PDF.",
       "quip": "pretty proud of that one",
+      "featured": true,
       "lang": "Zig",
       "lang_color": "#EC915C",
       "version": "v0.8.0",
       "stage": "stable",
-      "featured": true,
       "mode": "light"
     },
     {
@@ -34,11 +34,11 @@
       "kind": "tool",
       "blurb": "Turns .json files into daily and weekly reports.",
       "quip": "homework, but automated",
+      "featured": false,
       "lang": "Python",
       "lang_color": "#3572A5",
       "version": "v0.5.0",
       "stage": "stable",
-      "featured": false,
       "mode": "dark"
     },
     {
@@ -47,11 +47,11 @@
       "kind": "tool",
       "blurb": "Turns .json files into daily and weekly reports.",
       "quip": "homework, but automated",
+      "featured": false,
       "lang": "Python",
       "lang_color": "#3572A5",
       "version": "v0.5.0",
       "stage": "stable",
-      "featured": false,
       "mode": "light"
     },
     {
@@ -60,11 +60,11 @@
       "kind": "tool",
       "blurb": "Didn't we all write a benchmark script at some point?",
       "quip": "yes, this is mine",
+      "featured": false,
       "lang": "Python",
       "lang_color": "#3572A5",
       "version": "no release",
       "stage": "wip",
-      "featured": false,
       "mode": "dark"
     },
     {
@@ -73,11 +73,11 @@
       "kind": "tool",
       "blurb": "Didn't we all write a benchmark script at some point?",
       "quip": "yes, this is mine",
+      "featured": false,
       "lang": "Python",
       "lang_color": "#3572A5",
       "version": "no release",
       "stage": "wip",
-      "featured": false,
       "mode": "light"
     }
   ]
