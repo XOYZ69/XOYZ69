@@ -21,7 +21,7 @@
       "quip": "homework, but automated",
       "lang": "Python",
       "lang_color": "#3572A5",
-      "version": "v1.2.0",
+      "version": "v0.5.0",
       "stage": "stable"
     },
     {
@@ -32,7 +32,7 @@
       "quip": "yes, this is mine",
       "lang": "Python",
       "lang_color": "#3572A5",
-      "version": "v0.3.1",
+      "version": "no release",
       "stage": "wip"
     }
   ]
