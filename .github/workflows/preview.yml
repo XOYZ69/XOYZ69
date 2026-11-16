@@ -1,0 +1,144 @@
+name: Profile preview
+
+# Shows what a pull request does to the profile before it is merged: it builds
+# the cards the way the Profile workflow would after the merge, then comments
+# before/after images, the changed files and the changed data on the pull request.
+# Images live on the pr-previews branch and are removed when the pull request closes.
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    paths:
+      - "yoshida/**"
+      - "generated/**"
+      - "README.md"
+      - ".github/scripts/**"
+      - ".github/workflows/profile.yml"
+      - ".github/workflows/preview.yml"
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: Pull request number to preview
+        required: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: preview-${{ github.event.pull_request.number || inputs.pr }}
+  cancel-in-progress: true
+
+env:
+  PR: ${{ github.event.pull_request.number || inputs.pr }}
+  GH_TOKEN: ${{ github.token }}
+
+jobs:
+  preview:
+    # Pull requests from forks get no write token, so they are not previewed.
+    if: >-
+      github.event.action != 'closed' &&
+      (github.event_name == 'workflow_dispatch' ||
+       github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Find the pull request
+        id: pr
+        run: |
+          base_sha="$(gh pr view "$PR" -R "$GITHUB_REPOSITORY" --json baseRefOid --jq .baseRefOid)"
+          echo "base_sha=$base_sha" >> "$GITHUB_OUTPUT"
+
+      # What the main branch looks like now ...
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.pr.outputs.base_sha }}
+          path: base
+
+      # ... and what it looks like with the pull request merged.
+      - uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ env.PR }}/merge
+          path: head
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: python -m pip install --quiet "pillow>=10"
+
+      - name: Install Yoshida (the version of the pull request)
+        working-directory: head
+        run: bash .github/scripts/install_yoshida.sh
+
+      - name: Build the cards
+        working-directory: head
+        run: python .github/scripts/build_profile.py
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Publish the images
+        id: publish
+        run: |
+          sha="$(git -C head rev-parse --short HEAD)"
+          gh auth setup-git
+          if git clone --quiet --depth 1 --branch pr-previews "https://github.com/$GITHUB_REPOSITORY" previews 2>/dev/null; then
+            :
+          else
+            git init --quiet -b pr-previews previews
+            git -C previews remote add origin "https://github.com/$GITHUB_REPOSITORY"
+          fi
+          rm -rf "previews/pr-$PR"
+          mkdir -p "previews/pr-$PR/$sha"
+          cp -r head/generated/. "previews/pr-$PR/$sha/"
+          git -C previews config user.name "github-actions[bot]"
+          git -C previews config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C previews add -A
+          git -C previews commit --quiet -m "preview for pull request $PR ($sha)"
+          for attempt in 1 2 3; do
+            git -C previews push --quiet origin pr-previews && break
+            git -C previews pull --quiet --rebase origin pr-previews
+          done
+          echo "url=https://raw.githubusercontent.com/$GITHUB_REPOSITORY/pr-previews/pr-$PR/$sha" >> "$GITHUB_OUTPUT"
+
+      - name: Write the comment
+        run: |
+          git -C head diff --name-only HEAD^1 HEAD > changed.txt
+          python head/.github/scripts/compare_preview.py \
+            --base base --head head \
+            --repo "$GITHUB_REPOSITORY" \
+            --base-sha "${{ steps.pr.outputs.base_sha }}" \
+            --preview-url "${{ steps.publish.outputs.url }}" \
+            --changed changed.txt > comment.md
+          cat comment.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Post or update the comment
+        run: |
+          id="$(gh api "repos/$GITHUB_REPOSITORY/issues/$PR/comments" --paginate \
+                --jq '.[] | select(.body | contains("<!-- profile-preview -->")) | .id' | head -n 1)"
+          if [ -n "$id" ]; then
+            gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$id" -F body=@comment.md > /dev/null
+          else
+            gh pr comment "$PR" -R "$GITHUB_REPOSITORY" --body-file comment.md
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: profile-preview
+          path: head/generated
+
+  cleanup:
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Remove the preview images
+        run: |
+          gh auth setup-git
+          git clone --quiet --depth 1 --branch pr-previews "https://github.com/$GITHUB_REPOSITORY" previews || exit 0
+          [ -d "previews/pr-$PR" ] || exit 0
+          git -C previews rm -rq "pr-$PR"
+          git -C previews config user.name "github-actions[bot]"
+          git -C previews config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C previews commit --quiet -m "remove preview of pull request $PR"
+          git -C previews push --quiet origin pr-previews
