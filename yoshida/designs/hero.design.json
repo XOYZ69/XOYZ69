@@ -1,169 +1,172 @@
 {
-  "format": 1,
-  "name": "Hero",
-  "canvas": { "width": 830, "height": 260, "background": "#0A1424" },
-  "fonts": {
-    "mono": "assets/fonts/JetBrainsMono-Regular.ttf",
-    "bold": "assets/fonts/JetBrainsMono-Bold.ttf"
-  },
-  "consts": {
-    "c_bg": "#0A1424",
-    "c_panel": "#0F1D33",
-    "c_line": "#24456E",
-    "c_hair": "#8CCBF5",
-    "c_ice": "#C9EBFF",
-    "c_eye": "#2E9BE0",
-    "c_green": "#6D9382",
-    "c_trim": "#D9E04A",
-    "c_pink": "#F7D7C9",
-    "c_muted": "#7E9CC0",
-    "t": "f * 2 * pi / 12"
-  },
-  "params": {
-    "f": { "type": "integer", "default": 0, "min": 0, "max": 11 },
-    "msg": { "type": "text", "default": "git commit -m \"one more feature, I swear\"" },
-    "stats": {
-      "type": "list",
-      "default": [
-        { "label": "repos", "value": "14" },
-        { "label": "stars", "value": "23" },
-        { "label": "releases", "value": "8" },
-        { "label": "yrs coding", "value": "8" }
-      ],
-      "item": { "label": "text", "value": "text" }
-    }
-  },
-  "layers": [
-    {
-      "id": "grid_v",
-      "type": "rect",
-      "repeat": { "count": 32, "index": "i" },
-      "box": { "x": "i * 26", "y": 0, "w": 1, "h": "canvas.h" },
-      "fill": "#0E1B30"
-    },
-    {
-      "id": "grid_h",
-      "type": "rect",
-      "repeat": { "count": 11, "index": "i" },
-      "box": { "x": 0, "y": "i * 26", "w": "canvas.w", "h": 1 },
-      "fill": "#0E1B30"
-    },
-    {
-      "id": "glow",
-      "type": "ellipse",
-      "box": { "x": 520, "y": -60, "w": 380, "h": 380 },
-      "gradient": {
-        "type": "radial",
-        "stops": ["#1D4F82", "#0A1424"]
-      }
-    },
-    {
-      "id": "sparkle",
-      "type": "polygon",
-      "repeat": { "count": 16, "index": "k" },
-      "shape": { "type": "star", "count": 4, "inner": 0.22 },
-      "box": {
-        "x": "470 + rand(1, k) * 350",
-        "y": "rand(2, k) * 260",
-        "w": "5 + rand(3, k) * 9",
-        "h": "5 + rand(3, k) * 9"
-      },
-      "fill": "k % 3 == 0 ? c_trim : c_ice",
-      "opacity": "0.15 + 0.85 * abs(sin(t + rand(4, k) * 2 * pi))"
-    },
-    {
-      "id": "edge",
-      "type": "rect",
-      "box": { "x": 0, "y": "canvas.h - 3", "w": "canvas.w", "h": 3 },
-      "fill": "c_eye"
-    },
-    {
-      "id": "edge2",
-      "type": "rect",
-      "box": { "x": 0, "y": "canvas.h - 3", "w": 160, "h": 3 },
-      "fill": "c_trim"
-    },
-    {
-      "id": "avatar",
-      "type": "image",
-      "src": "assets/sinon.png",
-      "fit": "contain",
-      "box": { "x": 596, "y": "28 + 6 * sin(t)", "w": 214, "h": 214 }
-    },
-    {
-      "id": "tag",
-      "type": "text",
-      "font": "mono",
-      "text": "[00] PROFILE  //  sinon.exe",
-      "at": { "x": 36, "y": 30 },
-      "size": 12,
-      "color": "c_hair"
-    },
-    {
-      "id": "handle",
-      "type": "text",
-      "font": "bold",
-      "text": "XOYZ69",
-      "at": { "x": 34, "y": 48 },
-      "size": 60,
-      "color": "c_ice"
-    },
-    {
-      "id": "sub",
-      "type": "text",
-      "font": "mono",
-      "text": "software developer · anime addict · nihongo benkyou-chuu",
-      "at": { "x": 36, "y": 122 },
-      "size": 14,
-      "color": "c_hair"
-    },
-    {
-      "id": "typed",
-      "type": "text",
-      "font": "mono",
-      "text": "$ {slice(msg, 0, min(len(msg), ceil(len(msg) * (f + 1) / 9)))}",
-      "at": { "x": 36, "y": 150 },
-      "size": 14,
-      "color": "c_trim"
-    },
-    {
-      "id": "cursor",
-      "type": "rect",
-      "visible": "f % 2 == 0",
-      "box": { "x": "@typed.bounds.right + 3", "y": 150, "w": 8, "h": 16 },
-      "fill": "c_trim"
-    },
-    {
-      "id": "stat",
-      "type": "group",
-      "repeat": { "each": "stats", "item": "s", "index": "i" },
-      "translate": { "x": "36 + i * 130", "y": 196 },
-      "layers": [
-        {
-          "id": "stat_rule",
-          "type": "rect",
-          "box": { "x": 0, "y": 0, "w": 3, "h": 42 },
-          "fill": "i % 2 == 0 ? c_eye : c_hair"
-        },
-        {
-          "id": "stat_value",
-          "type": "text",
-          "font": "bold",
-          "text": "{s.value}",
-          "at": { "x": 14, "y": 0 },
-          "size": 24,
-          "color": "c_ice"
-        },
-        {
-          "id": "stat_label",
-          "type": "text",
-          "font": "mono",
-          "text": "{upper(s.label)}",
-          "at": { "x": 14, "y": 28 },
-          "size": 10,
-          "color": "c_muted"
-        }
-      ]
-    }
-  ]
+	"format": 1,
+	"name": "Hero",
+	"canvas": { "width": 830, "height": 260, "background": "#0A1424" },
+	"fonts": {
+		"mono": "assets/fonts/JetBrainsMono-Regular.ttf",
+		"bold": "assets/fonts/JetBrainsMono-Bold.ttf"
+	},
+	"consts": {
+		"c_bg": "#0A1424",
+		"c_panel": "#0F1D33",
+		"c_line": "#24456E",
+		"c_hair": "#8CCBF5",
+		"c_ice": "#C9EBFF",
+		"c_eye": "#2E9BE0",
+		"c_green": "#6D9382",
+		"c_trim": "#D9E04A",
+		"c_pink": "#F7D7C9",
+		"c_muted": "#7E9CC0",
+		"t": "f * 2 * pi / 12"
+	},
+	"params": {
+		"f": { "type": "integer", "default": 0, "min": 0, "max": 11 },
+		"msg": {
+			"type": "text",
+			"default": "git commit -m \"one more feature, I swear\""
+		},
+		"stats": {
+			"type": "list",
+			"default": [
+				{ "label": "repos", "value": "14" },
+				{ "label": "stars", "value": "23" },
+				{ "label": "releases", "value": "8" },
+				{ "label": "yrs coding", "value": "8" }
+			],
+			"item": { "label": "text", "value": "text" }
+		}
+	},
+	"layers": [
+		{
+			"id": "grid_v",
+			"type": "rect",
+			"repeat": { "count": 32, "index": "i" },
+			"box": { "x": "i * 26", "y": 0, "w": 1, "h": "canvas.h" },
+			"fill": "#0E1B30"
+		},
+		{
+			"id": "grid_h",
+			"type": "rect",
+			"repeat": { "count": 11, "index": "i" },
+			"box": { "x": 0, "y": "i * 26", "w": "canvas.w", "h": 1 },
+			"fill": "#0E1B30"
+		},
+		{
+			"id": "glow",
+			"type": "ellipse",
+			"box": { "x": 520, "y": -60, "w": 380, "h": 380 },
+			"gradient": {
+				"type": "radial",
+				"stops": ["#1D4F82", "#0A1424"]
+			}
+		},
+		{
+			"id": "sparkle",
+			"type": "polygon",
+			"repeat": { "count": 16, "index": "k" },
+			"shape": { "type": "star", "count": 4, "inner": 0.22 },
+			"box": {
+				"x": "470 + rand(1, k) * 350",
+				"y": "rand(2, k) * 260",
+				"w": "5 + rand(3, k) * 9",
+				"h": "5 + rand(3, k) * 9"
+			},
+			"fill": "k % 3 == 0 ? c_trim : c_ice",
+			"opacity": "0.15 + 0.85 * abs(sin(t + rand(4, k) * 2 * pi))"
+		},
+		{
+			"id": "edge",
+			"type": "rect",
+			"box": { "x": 0, "y": "canvas.h - 3", "w": "canvas.w", "h": 3 },
+			"fill": "c_eye"
+		},
+		{
+			"id": "edge2",
+			"type": "rect",
+			"box": { "x": 0, "y": "canvas.h - 3", "w": 160, "h": 3 },
+			"fill": "c_trim"
+		},
+		{
+			"id": "avatar",
+			"type": "image",
+			"src": "assets/sinon.png",
+			"fit": "contain",
+			"box": { "x": 596, "y": "28 + 6 * sin(t)", "w": 214, "h": 214 }
+		},
+		{
+			"id": "tag",
+			"type": "text",
+			"font": "mono",
+			"text": "[00] PROFILE  //  sinon.exe",
+			"at": { "x": 36, "y": 30 },
+			"size": 12,
+			"color": "c_hair"
+		},
+		{
+			"id": "handle",
+			"type": "text",
+			"font": "bold",
+			"text": "XOYZ69",
+			"at": { "x": 34, "y": 48 },
+			"size": 60,
+			"color": "c_ice"
+		},
+		{
+			"id": "sub",
+			"type": "text",
+			"font": "mono",
+			"text": "software developer · anime addict · nihongo benkyou-chuu",
+			"at": { "x": 36, "y": 122 },
+			"size": 14,
+			"color": "c_hair"
+		},
+		{
+			"id": "typed",
+			"type": "text",
+			"font": "mono",
+			"text": "$ {slice(msg, 0, min(len(msg), ceil(len(msg) * (f + 1) / 9)))}",
+			"at": { "x": 36, "y": 150 },
+			"size": 14,
+			"color": "c_trim"
+		},
+		{
+			"id": "cursor",
+			"type": "rect",
+			"visible": "f % 2 == 0",
+			"box": { "x": "@typed.bounds.right + 3", "y": 150, "w": 8, "h": 16 },
+			"fill": "c_trim"
+		},
+		{
+			"id": "stat",
+			"type": "group",
+			"repeat": { "each": "stats", "item": "s", "index": "i" },
+			"translate": { "x": "36 + i * 130", "y": 196 },
+			"layers": [
+				{
+					"id": "stat_rule",
+					"type": "rect",
+					"box": { "x": 0, "y": 0, "w": 3, "h": 42 },
+					"fill": "i % 2 == 0 ? c_eye : c_hair"
+				},
+				{
+					"id": "stat_value",
+					"type": "text",
+					"font": "bold",
+					"text": "{s.value}",
+					"at": { "x": 14, "y": 0 },
+					"size": 24,
+					"color": "c_ice"
+				},
+				{
+					"id": "stat_label",
+					"type": "text",
+					"font": "mono",
+					"text": "{upper(s.label)}",
+					"at": { "x": 14, "y": 28 },
+					"size": 10,
+					"color": "c_muted"
+				}
+			]
+		}
+	]
 }

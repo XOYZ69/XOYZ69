@@ -1,28 +1,28 @@
 {
-  "login": "XOYZ69",
-  "coding_since": "2018-09-01",
-  "hero_message": "git commit -m \"one more feature, I swear\"",
-  "featured": [
-    {
-      "repo": "yoshida",
-      "name": "Yoshida",
-      "kind": "oss",
-      "blurb": "Overcomplicated card creator: JSON designs with formulas, rendered to PNG, SVG or PDF.",
-      "quip": "pretty proud of that one"
-    },
-    {
-      "repo": "school_reports",
-      "name": "school_reports",
-      "kind": "tool",
-      "blurb": "Turns .json files into daily and weekly reports.",
-      "quip": "homework, but automated"
-    },
-    {
-      "repo": "Benchmark-X",
-      "name": "Benchmark-X",
-      "kind": "tool",
-      "blurb": "Didn't we all write a benchmark script at some point?",
-      "quip": "yes, this is mine"
-    }
-  ]
+	"login": "XOYZ69",
+	"coding_since": "2018-09-01",
+	"hero_message": "git commit -m \"one more feature, I swear\"",
+	"featured": [
+		{
+			"repo": "yoshida",
+			"name": "Yoshida",
+			"kind": "oss",
+			"blurb": "Overcomplicated card creator: JSON designs with formulas, rendered to PNG, SVG or PDF.",
+			"quip": "pretty proud of that one"
+		},
+		{
+			"repo": "school_reports",
+			"name": "school_reports",
+			"kind": "tool",
+			"blurb": "Turns .json files into daily and weekly reports.",
+			"quip": "homework, but automated"
+		},
+		{
+			"repo": "Benchmark-X",
+			"name": "Benchmark-X",
+			"kind": "tool",
+			"blurb": "Didn't we all write a benchmark script at some point?",
+			"quip": "yes, this is mine"
+		}
+	]
 }
