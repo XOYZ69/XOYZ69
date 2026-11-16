@@ -24,5 +24,28 @@
       "blurb": "Didn't we all write a benchmark script at some point?",
       "quip": "yes, this is mine"
     }
+  ],
+  "skills": {
+    "main_count": 4,
+    "sub_count": 8,
+    "half_life_days": 270,
+    "manual": { "Git": 0.2, "Linux": 0.3 },
+    "topic_skills": {
+      "arduino": "Arduino",
+      "raspberry-pi": "Raspberry Pi",
+      "raspberrypi": "Raspberry Pi",
+      "latex": "LaTeX",
+      "linux": "Linux",
+      "docker": "Docker"
+    }
+  },
+  "extra_sources": [
+    {
+      "type": "forgejo",
+      "enabled": false,
+      "base_url": "https://git.example.org",
+      "login": "your-forgejo-user",
+      "token_env": "FORGEJO_TOKEN"
+    }
   ]
 }

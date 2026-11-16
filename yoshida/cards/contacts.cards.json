@@ -1,0 +1,9 @@
+{
+  "format": 1,
+  "design": "designs/contact.design.json",
+  "cards": [
+    { "id": "discord", "label": "discord", "value": "xoyz69", "icon": "discord" },
+    { "id": "mail", "label": "e-mail", "value": "xoyz@nyarch.de", "icon": "mail" },
+    { "id": "github", "label": "github", "value": "XOYZ69", "icon": "github" }
+  ]
+}

@@ -30,3 +30,17 @@ public data of the login in `profile.config.json` (set `GITHUB_TOKEN` to avoid t
   when the pull request closes. Run it by hand with the pull request number if a pull request was opened by a workflow.
 - **Yoshida bump** (`yoshida-bump.yml`): opens a pull request when a new Yoshida release exists, so the preview shows
   what the new version does before you merge.
+
+## Formatting
+
+Every JSON file in this folder is written by `yoshida fmt` (CI fails on anything else).
+Editors that format JSON on save fight with it, so:
+
+- `.zed/settings.json` turns format on save off for this folder in Zed.
+- `.githooks/pre-commit` runs `yoshida fmt` on staged files. Enable it once per clone:
+
+  ```sh
+  git config core.hooksPath .githooks
+  ```
+
+  It uses `$YOSHIDA_BIN` or `yoshida` from your `PATH`.

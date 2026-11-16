@@ -4,7 +4,8 @@
   "canvas": { "width": 830, "height": 260, "background": "#0A1424" },
   "fonts": {
     "mono": "assets/fonts/JetBrainsMono-Regular.ttf",
-    "bold": "assets/fonts/JetBrainsMono-Bold.ttf"
+    "bold": "assets/fonts/JetBrainsMono-Bold.ttf",
+    "head": "assets/fonts/ChakraPetch-Bold.ttf"
   },
   "consts": {
     "c_bg": "#0A1424",
@@ -102,10 +103,10 @@
     {
       "id": "handle",
       "type": "text",
-      "font": "bold",
+      "font": "head",
       "text": "XOYZ69",
-      "at": { "x": 34, "y": 48 },
-      "size": 60,
+      "at": { "x": 34, "y": 40 },
+      "size": 66,
       "color": "c_ice"
     },
     {
@@ -137,7 +138,7 @@
       "id": "stat",
       "type": "group",
       "repeat": { "each": "stats", "item": "s", "index": "i" },
-      "translate": { "x": "36 + i * 130", "y": 196 },
+      "translate": { "x": "36 + i * 130", "y": 184 },
       "layers": [
         {
           "id": "stat_rule",
@@ -148,10 +149,10 @@
         {
           "id": "stat_value",
           "type": "text",
-          "font": "bold",
+          "font": "head",
           "text": "{s.value}",
           "at": { "x": 14, "y": 0 },
-          "size": 24,
+          "size": 30,
           "color": "c_ice"
         },
         {
@@ -159,9 +160,9 @@
           "type": "text",
           "font": "mono",
           "text": "{upper(s.label)}",
-          "at": { "x": 14, "y": 28 },
-          "size": 10,
-          "color": "c_muted"
+          "at": { "x": 14, "y": 46 },
+          "size": 11,
+          "color": "c_hair"
         }
       ]
     }
