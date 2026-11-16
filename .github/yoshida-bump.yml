@@ -1,0 +1,56 @@
+name: Yoshida bump
+
+# Opens a pull request when a new Yoshida release exists. The pull request is
+# previewed by preview.yml, so you see what the new version does before merging.
+# Needs: Settings > Actions > General > "Allow GitHub Actions to create and approve pull requests".
+#
+# To react to a release immediately, add this step to the release workflow of
+# XOYZ69/yoshida (the token needs "repo" scope on XOYZ69/XOYZ69):
+#   - run: gh api repos/XOYZ69/XOYZ69/dispatches -f event_type=yoshida-release
+#     env: { GH_TOKEN: "${{ secrets.PROFILE_DISPATCH_TOKEN }}" }
+on:
+  schedule:
+    - cron: "41 6 * * 1"
+  repository_dispatch:
+    types: [yoshida-release]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+env:
+  GH_TOKEN: ${{ github.token }}
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Open a pull request for a new release
+        run: |
+          latest="$(gh release view -R XOYZ69/yoshida --json tagName --jq .tagName)"
+          latest="${latest#v}"
+          current="$(tr -d '[:space:]' < yoshida/YOSHIDA_VERSION)"
+          if [ "$current" = "latest" ] || [ "$current" = "$latest" ]; then
+            echo "Yoshida is up to date ($current)."; exit 0
+          fi
+          branch="bump/yoshida-$latest"
+          if git ls-remote --exit-code --heads origin "$branch" > /dev/null; then
+            echo "$branch already exists."; exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          echo "$latest" > yoshida/YOSHIDA_VERSION
+          git commit -am "chore(yoshida): bump to $latest"
+          git push -u origin "$branch"
+          url="$(gh pr create --base main --head "$branch" \
+            --title "chore(yoshida): bump to $latest" \
+            --body "Yoshida $current to $latest. The preview comment shows what changes in the cards. Release notes: https://github.com/XOYZ69/yoshida/releases/tag/v$latest")"
+          # A pull request opened with the default token does not start other
+          # workflows, so start the preview by hand.
+          gh workflow run preview.yml -f pr="${url##*/}"

@@ -1,0 +1,39 @@
+{
+  "format": 1,
+  "design": "designs/project.design.json",
+  "cards": [
+    {
+      "id": "yoshida",
+      "name": "Yoshida",
+      "kind": "oss",
+      "blurb": "Overcomplicated card creator: JSON designs with formulas, rendered to PNG, SVG or PDF.",
+      "quip": "pretty proud of that one",
+      "lang": "Zig",
+      "lang_color": "#EC915C",
+      "version": "v0.8.0",
+      "stage": "stable"
+    },
+    {
+      "id": "school_reports",
+      "name": "school_reports",
+      "kind": "tool",
+      "blurb": "Turns .json files into daily and weekly reports.",
+      "quip": "homework, but automated",
+      "lang": "Python",
+      "lang_color": "#3572A5",
+      "version": "v1.2.0",
+      "stage": "stable"
+    },
+    {
+      "id": "benchmark-x",
+      "name": "Benchmark-X",
+      "kind": "tool",
+      "blurb": "Didn't we all write a benchmark script at some point?",
+      "quip": "yes, this is mine",
+      "lang": "Python",
+      "lang_color": "#3572A5",
+      "version": "v0.3.1",
+      "stage": "wip"
+    }
+  ]
+}
