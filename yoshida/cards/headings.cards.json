@@ -1,0 +1,9 @@
+{
+  "format": 1,
+  "design": "designs/heading.design.json",
+  "cards": [
+    { "id": "skills", "idx": "//", "title": "user.get_techstack()" },
+    { "id": "projects", "idx": "//", "title": "user.get_projects()" },
+    { "id": "contact", "idx": "//", "title": "user.contact()" }
+  ]
+}

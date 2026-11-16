@@ -4,7 +4,8 @@
   "canvas": { "width": 272, "height": 344, "background": "#00000000" },
   "fonts": {
     "mono": "assets/fonts/JetBrainsMono-Regular.ttf",
-    "bold": "assets/fonts/JetBrainsMono-Bold.ttf"
+    "bold": "assets/fonts/JetBrainsMono-Bold.ttf",
+    "head": "assets/fonts/ChakraPetch-Bold.ttf"
   },
   "consts": {
     "c_bg": "#0A1424",
@@ -32,16 +33,16 @@
     {
       "id": "frame",
       "type": "rect",
-      "box": { "x": 10, "y": 32, "w": 252, "h": 302 },
+      "box": { "x": 1, "y": 32, "w": 270, "h": 302 },
       "fill": "c_panel",
       "stroke": { "color": "c_line", "width": 1.5 }
     },
     {
       "id": "paw_big",
       "type": "group",
-      "translate": { "x": 160, "y": 196 },
+      "translate": { "x": 182, "y": 214 },
       "rotate": 14,
-      "opacity": 1,
+      "opacity": 0.7,
       "layers": [
         {
           "id": "paw_big_pad",
@@ -78,7 +79,7 @@
     {
       "id": "strip",
       "type": "rect",
-      "box": { "x": 11, "y": 33, "w": 5, "h": 300 },
+      "box": { "x": 2, "y": 33, "w": 5, "h": 300 },
       "fill": "c_eye"
     },
     {
@@ -150,10 +151,10 @@
     {
       "id": "name",
       "type": "text",
-      "font": "bold",
+      "font": "head",
       "text": "{name}",
       "at": { "x": 30, "y": 98 },
-      "size": 26,
+      "size": 30,
       "color": "c_ice",
       "max_width": 212
     },
@@ -163,8 +164,8 @@
       "font": "mono",
       "text": "{blurb}",
       "at": { "x": 32, "y": "@name.bounds.bottom + 14" },
-      "size": 12,
-      "color": "c_hair",
+      "size": 13,
+      "color": "c_ice",
       "wrap": 208,
       "line_spacing": 5,
       "max_lines": 4

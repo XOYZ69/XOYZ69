@@ -1,0 +1,67 @@
+{
+  "format": 1,
+  "name": "Heading",
+  "canvas": { "width": 830, "height": 44, "background": "#0A1424" },
+  "fonts": {
+    "mono": "assets/fonts/JetBrainsMono-Regular.ttf",
+    "bold": "assets/fonts/JetBrainsMono-Bold.ttf",
+    "head": "assets/fonts/ChakraPetch-Bold.ttf"
+  },
+  "consts": {
+    "c_bg": "#0A1424",
+    "c_panel": "#0F1D33",
+    "c_line": "#24456E",
+    "c_hair": "#8CCBF5",
+    "c_ice": "#C9EBFF",
+    "c_eye": "#2E9BE0",
+    "c_trim": "#D9E04A",
+    "c_muted": "#7E9CC0"
+  },
+  "params": {
+    "idx": { "type": "text", "default": "//" },
+    "title": { "type": "text", "default": "user.get_techstack()" }
+  },
+  "layers": [
+    {
+      "id": "mark",
+      "type": "rect",
+      "box": { "x": 0, "y": 10, "w": 4, "h": 24 },
+      "fill": "c_trim"
+    },
+    {
+      "id": "idx",
+      "type": "text",
+      "font": "mono",
+      "text": "{idx}",
+      "at": { "x": 18, "y": 16 },
+      "size": 12,
+      "color": "c_muted"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "font": "head",
+      "text": "> {title}",
+      "at": { "x": 50, "y": 9 },
+      "size": 22,
+      "color": "c_ice"
+    },
+    {
+      "id": "rule",
+      "type": "rect",
+      "box": {
+        "x": "@title.bounds.right + 18",
+        "y": 21,
+        "w": "canvas.w - @title.bounds.right - 18 - 26",
+        "h": 1
+      },
+      "fill": "c_line"
+    },
+    {
+      "id": "cap",
+      "type": "rect",
+      "box": { "x": "canvas.w - 24", "y": 18, "w": 7, "h": 7 },
+      "fill": "c_eye"
+    }
+  ]
+}

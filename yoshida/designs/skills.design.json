@@ -1,0 +1,214 @@
+{
+  "format": 1,
+  "name": "Skills",
+  "canvas": { "width": 830, "height": 284, "background": "#0A1424" },
+  "fonts": {
+    "mono": "assets/fonts/JetBrainsMono-Regular.ttf",
+    "bold": "assets/fonts/JetBrainsMono-Bold.ttf",
+    "head": "assets/fonts/ChakraPetch-Bold.ttf"
+  },
+  "consts": {
+    "c_bg": "#0A1424",
+    "c_panel": "#0F1D33",
+    "c_line": "#24456E",
+    "c_hair": "#8CCBF5",
+    "c_ice": "#C9EBFF",
+    "c_eye": "#2E9BE0",
+    "c_trim": "#D9E04A",
+    "c_muted": "#7E9CC0"
+  },
+  "params": {
+    "main": {
+      "type": "list",
+      "default": [
+        { "name": "Python", "icon": "python", "meta": "6 repos · 3d ago", "trend": "rising" },
+        { "name": "Zig", "icon": "zig", "meta": "2 repos · 1d ago", "trend": "rising" },
+        { "name": "LaTeX", "icon": "latex", "meta": "3 repos · 4 mo ago", "trend": "steady" },
+        { "name": "Arduino", "icon": "arduino", "meta": "2 repos · 9 mo ago", "trend": "steady" }
+      ],
+      "item": { "name": "text", "icon": "text", "meta": "text", "trend": "text" }
+    },
+    "sub": {
+      "type": "list",
+      "default": [
+        { "name": "Git", "icon": "git", "active": true },
+        { "name": "Linux", "icon": "linux", "active": true },
+        { "name": "Raspberry Pi", "icon": "raspberrypi", "active": false },
+        { "name": "Bash", "icon": "gnubash", "active": true },
+        { "name": "C++", "icon": "cplusplus", "active": false },
+        { "name": "Rust", "icon": "", "active": false }
+      ],
+      "item": { "name": "text", "icon": "text", "active": "bool" }
+    }
+  },
+  "layers": [
+    {
+      "id": "lbl_main",
+      "type": "text",
+      "font": "bold",
+      "text": "MAIN",
+      "at": { "x": 24, "y": 18 },
+      "size": 11,
+      "color": "c_muted"
+    },
+    {
+      "id": "main_cell",
+      "type": "group",
+      "repeat": { "each": "main", "item": "m", "index": "i" },
+      "translate": { "x": "24 + i * 196", "y": 42 },
+      "layers": [
+        {
+          "id": "m_box",
+          "type": "rect",
+          "box": { "x": 0, "y": 0, "w": 184, "h": 120 },
+          "fill": "c_panel"
+        },
+        {
+          "id": "m_top",
+          "type": "rect",
+          "box": { "x": 0, "y": 0, "w": 184, "h": 3 },
+          "fill": "match(m.trend, 'rising', c_trim, 'steady', c_eye, c_muted)"
+        },
+        {
+          "id": "m_icon_img",
+          "type": "image",
+          "src": "assets/icons/{m.icon}.svg",
+          "optional": true,
+          "fit": "contain",
+          "box": { "x": 16, "y": 20, "w": 40, "h": 40 }
+        },
+        {
+          "id": "m_icon_tile",
+          "type": "rect",
+          "visible": "not @m_icon_img.visible",
+          "box": { "x": 16, "y": 20, "w": 40, "h": 40 },
+          "fill": "c_line"
+        },
+        {
+          "id": "m_icon_letter",
+          "type": "text",
+          "font": "head",
+          "text": "{upper(slice(m.name, 0, 1))}",
+          "at": { "x": 36, "y": 40 },
+          "size": 24,
+          "color": "c_ice",
+          "anchor": "center",
+          "visible": "not @m_icon_img.visible"
+        },
+        {
+          "id": "m_name",
+          "type": "text",
+          "font": "head",
+          "text": "{m.name}",
+          "at": { "x": 68, "y": 22 },
+          "size": 23,
+          "color": "c_ice",
+          "max_width": 104
+        },
+        {
+          "id": "m_meta",
+          "type": "text",
+          "font": "mono",
+          "text": "{m.meta}",
+          "at": { "x": 16, "y": 74 },
+          "size": 11,
+          "color": "c_muted"
+        },
+        {
+          "id": "m_pill",
+          "type": "rect",
+          "box": { "x": 16, "y": 93, "w": "@m_trend.bounds.w + 16", "h": 18 },
+          "fill": "match(m.trend, 'rising', c_trim, #00000000)",
+          "stroke": {
+            "color": "match(m.trend, 'rising', c_trim, 'steady', c_eye, c_muted)",
+            "width": 1
+          }
+        },
+        {
+          "id": "m_trend",
+          "type": "text",
+          "font": "bold",
+          "text": "{upper(m.trend)}",
+          "at": { "x": 24, "y": 96 },
+          "size": 10,
+          "color": "match(m.trend, 'rising', c_bg, 'steady', c_hair, c_muted)"
+        }
+      ]
+    },
+    {
+      "id": "lbl_sub",
+      "type": "text",
+      "font": "bold",
+      "text": "ALSO IN THE TOOLBOX",
+      "at": { "x": 24, "y": 184 },
+      "size": 11,
+      "color": "c_muted"
+    },
+    {
+      "id": "sub_chip",
+      "type": "group",
+      "repeat": { "each": "sub", "item": "s", "index": "i" },
+      "translate": { "x": "24 + (i % 4) * 196", "y": "206 + floor(i / 4) * 38" },
+      "layers": [
+        {
+          "id": "s_box",
+          "type": "rect",
+          "box": { "x": 0, "y": 0, "w": 184, "h": 30 },
+          "fill": "c_panel"
+        },
+        {
+          "id": "s_icon_img",
+          "type": "image",
+          "src": "assets/icons/{s.icon}.svg",
+          "optional": true,
+          "fit": "contain",
+          "box": { "x": 10, "y": 7, "w": 16, "h": 16 }
+        },
+        {
+          "id": "s_icon_tile",
+          "type": "rect",
+          "visible": "not @s_icon_img.visible",
+          "box": { "x": 10, "y": 7, "w": 16, "h": 16 },
+          "fill": "c_line"
+        },
+        {
+          "id": "s_icon_letter",
+          "type": "text",
+          "font": "head",
+          "text": "{upper(slice(s.name, 0, 1))}",
+          "at": { "x": 18, "y": 15 },
+          "size": 9.6,
+          "color": "c_ice",
+          "anchor": "center",
+          "visible": "not @s_icon_img.visible"
+        },
+        {
+          "id": "s_name",
+          "type": "text",
+          "font": "head",
+          "text": "{s.name}",
+          "at": { "x": 34, "y": 6 },
+          "size": 14,
+          "color": "c_ice",
+          "max_width": 118
+        },
+        {
+          "id": "s_dot",
+          "type": "rect",
+          "box": { "x": 168, "y": 11, "w": 8, "h": 8 },
+          "fill": "s.active ? c_trim : c_line"
+        }
+      ]
+    },
+    {
+      "id": "legend",
+      "type": "text",
+      "font": "mono",
+      "text": "■ pushed in the last 90 days",
+      "at": { "x": "canvas.w - 24", "y": 184 },
+      "anchor": "top-right",
+      "size": 11,
+      "color": "c_trim"
+    }
+  ]
+}
