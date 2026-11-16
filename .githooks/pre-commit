@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Formats the Yoshida project files with `yoshida fmt` before every commit.
+# Enable once per clone:  git config core.hooksPath .githooks
+# Binary: $YOSHIDA_BIN, else `yoshida` on PATH (download it from the release zip).
+set -euo pipefail
+
+staged="$(git diff --cached --name-only --diff-filter=ACM -- 'yoshida/*.json')"
+[ -n "$staged" ] || exit 0
+
+bin="${YOSHIDA_BIN:-$(command -v yoshida || true)}"
+if [ -z "$bin" ]; then
+  echo "pre-commit: yoshida binary not found (set YOSHIDA_BIN or put it on PATH); skipping fmt." >&2
+  echo "pre-commit: CI will fail on unformatted files." >&2
+  exit 0
+fi
+
+# Format only the staged files, then stage the result.
+# shellcheck disable=SC2086
+"$bin" fmt $staged
+# shellcheck disable=SC2086
+git add -- $staged
