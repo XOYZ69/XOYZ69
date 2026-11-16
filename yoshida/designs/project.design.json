@@ -1,7 +1,7 @@
 {
 	"format": 1,
 	"name": "Project card",
-	"canvas": { "width": 272, "height": 344 },
+	"canvas": { "width": 272, "height": 344, "background": "00000000" },
 	"fonts": {
 		"mono": "assets/fonts/JetBrainsMono-Regular.ttf",
 		"bold": "assets/fonts/JetBrainsMono-Bold.ttf"
