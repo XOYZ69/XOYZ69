@@ -3,7 +3,8 @@
   "design": "designs/skills.design.json",
   "cards": [
     {
-      "id": "skills",
+      "id": "skills-dark",
+      "mode": "dark",
       "main": [
         { "name": "Python", "icon": "python", "meta": "6 repos · 3d ago", "trend": "rising" },
         { "name": "Zig", "icon": "zig", "meta": "2 repos · 1d ago", "trend": "rising" },
@@ -16,7 +17,25 @@
         { "name": "Raspberry Pi", "icon": "raspberrypi", "active": false },
         { "name": "Bash", "icon": "gnubash", "active": true },
         { "name": "C++", "icon": "cplusplus", "active": false },
-        { "name": "Rust", "icon": "", "active": false }
+        { "name": "Rust", "icon": "rust", "active": false }
+      ]
+    },
+    {
+      "id": "skills-light",
+      "mode": "light",
+      "main": [
+        { "name": "Python", "icon": "python", "meta": "6 repos · 3d ago", "trend": "rising" },
+        { "name": "Zig", "icon": "zig", "meta": "2 repos · 1d ago", "trend": "rising" },
+        { "name": "LaTeX", "icon": "latex", "meta": "3 repos · 4 mo ago", "trend": "steady" },
+        { "name": "Arduino", "icon": "arduino", "meta": "2 repos · 9 mo ago", "trend": "steady" }
+      ],
+      "sub": [
+        { "name": "Git", "icon": "git", "active": true },
+        { "name": "Linux", "icon": "linux", "active": true },
+        { "name": "Raspberry Pi", "icon": "raspberrypi", "active": false },
+        { "name": "Bash", "icon": "gnubash", "active": true },
+        { "name": "C++", "icon": "cplusplus", "active": false },
+        { "name": "Rust", "icon": "rust", "active": false }
       ]
     }
   ]

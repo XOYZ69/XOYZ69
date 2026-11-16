@@ -78,6 +78,7 @@ def main() -> int:
     ap.add_argument("--repo", required=True)
     ap.add_argument("--base-sha", required=True)
     ap.add_argument("--preview-url", required=True)
+    ap.add_argument("--readme-url", help="page that shows the whole README as it will look after the merge")
     ap.add_argument("--changed", help="file with the paths the pull request changes, one per line")
     args = ap.parse_args()
     base, head = Path(args.base), Path(args.head)
@@ -122,6 +123,8 @@ def main() -> int:
         lines += ["Merging this pull request changes **no generated image**.", ""]
     else:
         lines += [f"Merging this pull request changes **{len(changed)} of {len(h_files)}** generated files.", ""]
+    if args.readme_url:
+        lines += [f"**[Open the full README as it will look after the merge]({args.readme_url})**", ""]
     if flags:
         lines += ["**What else changes**", ""] + [f"- {f}" for f in flags] + [""]
 
@@ -131,7 +134,7 @@ def main() -> int:
         lines += ["**Data changes**", "", *changes, ""]
 
     raw = f"https://raw.githubusercontent.com/{args.repo}/{args.base_sha}/generated"
-    shown = [r for r in changed if r == "hero.gif" or r.startswith("projects/")]
+    shown = [r for r in changed if r == "hero.gif" or r.startswith(("projects/", "skills/"))]
     if shown:
         lines += ["**Before and after**", ""]
         for rel in shown:

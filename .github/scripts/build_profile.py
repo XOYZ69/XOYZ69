@@ -21,8 +21,12 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import skills  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[2]
 PROJECT = ROOT / "yoshida"
+skills.ICON_DIR = PROJECT / "assets" / "icons"
 FRAMES = 12
 FRAME_MS = 140
 
@@ -77,6 +81,7 @@ def collect(cfg: dict, today: dt.date, fetch=api) -> dict:
     for r in repos:
         releases += len(fetch(f"/repos/{login}/{r['name']}/releases?per_page=100"))
     by_name = {r["name"].lower(): r for r in repos}
+    all_repos = skills.gather(cfg)
 
     projects = []
     for item in cfg["featured"]:
@@ -97,6 +102,7 @@ def collect(cfg: dict, today: dt.date, fetch=api) -> dict:
                 "kind": item.get("kind", "oss"),
                 "blurb": item.get("blurb") or repo.get("description") or "",
                 "quip": item.get("quip", ""),
+                "featured": bool(item.get("featured", False)),
                 "lang": lang,
                 "lang_color": LANG_COLORS.get(lang, DEFAULT_LANG_COLOR),
                 "version": latest["tag_name"] if latest else "no release",
@@ -105,13 +111,16 @@ def collect(cfg: dict, today: dt.date, fetch=api) -> dict:
                 else "wip",
             }
         )
+    other = [r for r in all_repos if r.source != "github" and not r.fork]
+    stars += sum(r.stars for r in other)
     stats = [
-        {"label": "repos", "value": str(len(repos))},
+        {"label": "repos", "value": str(len(repos) + len(other))},
         {"label": "stars", "value": str(stars)},
         {"label": "releases", "value": str(releases)},
         {"label": "yrs coding", "value": str(years_since(cfg["coding_since"], today))},
     ]
-    return {"stats": stats, "projects": projects}
+    main, sub = skills.compute(all_repos, cfg, today)
+    return {"stats": stats, "projects": projects, "skills": {"main": main, "sub": sub}}
 
 
 def write_cards(cfg: dict, data: dict) -> None:
@@ -131,7 +140,11 @@ def write_cards(cfg: dict, data: dict) -> None:
     projects = {
         "format": 1,
         "design": "designs/project.design.json",
-        "cards": data["projects"],
+        "cards": [
+            {**c, "id": f"{c['id']}-{m}", "mode": m}
+            for c in data["projects"]
+            for m in ("dark", "light")
+        ],
     }
     (PROJECT / "cards" / "hero.cards.json").write_text(
         json.dumps(hero, indent=2) + "\n"
@@ -139,11 +152,33 @@ def write_cards(cfg: dict, data: dict) -> None:
     (PROJECT / "cards" / "projects.cards.json").write_text(
         json.dumps(projects, indent=2) + "\n"
     )
+    skills_cards = {
+        "format": 1,
+        "design": "designs/skills.design.json",
+        "cards": [{"id": f"skills-{m}", "mode": m, **data["skills"]} for m in ("dark", "light")],
+    }
+    (PROJECT / "cards" / "skills.cards.json").write_text(
+        json.dumps(skills_cards, indent=2) + "\n"
+    )
+    # Intro and footer are text cards, one per colour theme.
+    version = (PROJECT / "YOSHIDA_VERSION").read_text().strip()
+    notes = {
+        "intro": (cfg.get("intro", ""), "designs/intro.design.json"),
+        "footer": (f"cards drawn with Yoshida {version}, rebuilt daily, nya~", "designs/footer.design.json"),
+    }
+    for name, (text, design) in notes.items():
+        cards = [{"id": f"{name}-{m}", "mode": m, "text": text} for m in ("dark", "light")]
+        (PROJECT / "cards" / f"{name}.cards.json").write_text(
+            json.dumps({"format": 1, "design": design, "cards": cards}, indent=2) + "\n"
+        )
     # Write the files in Yoshida's canonical layout, so diffs only show real changes.
     yoshida(
         "fmt",
+        str(PROJECT / "cards" / "intro.cards.json"),
+        str(PROJECT / "cards" / "footer.cards.json"),
         str(PROJECT / "cards" / "hero.cards.json"),
         str(PROJECT / "cards" / "projects.cards.json"),
+        str(PROJECT / "cards" / "skills.cards.json"),
     )
 
 
@@ -157,47 +192,59 @@ def yoshida(*args: str) -> None:
 def read_existing() -> dict:
     hero = json.loads((PROJECT / "cards" / "hero.cards.json").read_text())
     projects = json.loads((PROJECT / "cards" / "projects.cards.json").read_text())
-    return {"stats": hero["cards"][0]["stats"], "projects": projects["cards"]}
+    dark = []
+    for c in projects["cards"]:
+        if c.get("mode") == "dark":
+            c = {k: v for k, v in c.items() if k != "mode"}
+            c["id"] = c["id"].removesuffix("-dark")
+            dark.append(c)
+    projects = {"cards": dark}
+    skill_card = json.loads((PROJECT / "cards" / "skills.cards.json").read_text())["cards"][0]
+    return {
+        "stats": hero["cards"][0]["stats"],
+        "projects": projects["cards"],
+        "skills": {"main": skill_card["main"], "sub": skill_card["sub"]},
+    }
 
 
-def render(out: Path) -> None:
+def render(out: Path, now: dt.datetime) -> None:
     from PIL import Image  # imported late so --help works without Pillow
 
     work = out / ".work"
     shutil.rmtree(work, ignore_errors=True)
     # Fixed clock: the cards do not print the time, and a pinned instant keeps output reproducible.
     clock = ["--now", "2026-01-01T00:00:00Z"]
-    yoshida("fmt", "--check", str(PROJECT))
+    try:
+        yoshida("fmt", "--check", str(PROJECT))
+    except subprocess.CalledProcessError:
+        raise SystemExit(
+            "Some files in yoshida/ are not in Yoshida's layout. "
+            "Run `yoshida fmt yoshida` (or enable .githooks/pre-commit) and commit."
+        )
     yoshida("check", str(PROJECT))
-    yoshida(
-        "render",
-        str(PROJECT),
-        "--set",
-        "hero",
-        "--scale",
-        "2",
-        "--out",
-        str(work / "png"),
-        *clock,
-    )
-    yoshida(
-        "render",
-        str(PROJECT),
-        "--set",
-        "projects",
-        "--svg",
-        "--out",
-        str(work / "svg"),
-        *clock,
-    )
+    # The hero is rendered at 2x and kept at 2x, so it stays sharp on high-dpi screens.
+    yoshida("render", str(PROJECT), "--set", "hero", "--scale", "2", "--out", str(work / "png"), *clock)
+    yoshida("render", str(PROJECT), "--set", "projects", "--svg", "--out", str(work / "svg"), *clock)
+    # Icons inside the skills card are pixels in an SVG, so give them a high resolution.
+    yoshida("render", str(PROJECT), "--set", "skills", "--svg", "--scale", "4", "--out", str(work / "svg"), *clock)
+    # Contact chips carry a brand icon, so they get the same high resolution.
+    yoshida("render", str(PROJECT), "--set", "contacts", "--svg", "--scale", "4", "--out", str(work / "svg"), *clock)
+    yoshida("render", str(PROJECT), "--set", "headings", "--svg", "--out", str(work / "svg"), *clock)
+    yoshida("render", str(PROJECT), "--set", "intro", "--svg", "--out", str(work / "svg"), *clock)
+    # The footer prints the render date, so it is the only set that uses the real clock.
+    stamp = now.astimezone(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    yoshida("render", str(PROJECT), "--set", "footer", "--svg", "--out", str(work / "svg"), "--now", stamp)
 
     frames = [
-        Image.open(work / "png" / "hero" / f"f{i:02d}.png")
-        .convert("RGB")
-        .resize((830, 260), Image.LANCZOS)
+        Image.open(work / "png" / "hero" / f"f{i:02d}.png").convert("RGB")
         for i in range(FRAMES)
     ]
-    palette = frames[0].quantize(128, method=Image.MEDIANCUT)
+    # One palette for all frames, taken from a strip of every frame, so colors do not jump.
+    w, h = frames[0].size
+    strip = Image.new("RGB", (w, h * FRAMES))
+    for i, frame in enumerate(frames):
+        strip.paste(frame, (0, i * h))
+    palette = strip.quantize(256, method=Image.MEDIANCUT)
     quant = [f.quantize(palette=palette, dither=Image.Dither.NONE) for f in frames]
     out.mkdir(parents=True, exist_ok=True)
     quant[0].save(
@@ -209,6 +256,10 @@ def render(out: Path) -> None:
         optimize=True,
         disposal=1,
     )
+    (out / "skills.svg").unlink(missing_ok=True)
+    for name in ("skills", "contacts", "headings", "intro", "footer"):
+        shutil.rmtree(out / name, ignore_errors=True)
+        shutil.copytree(work / "svg" / name, out / name)
     dest = out / "projects"
     shutil.rmtree(dest, ignore_errors=True)
     shutil.copytree(work / "svg" / "projects", dest)
@@ -221,12 +272,18 @@ def main() -> int:
     )
     ap.add_argument("--out", default=str(ROOT / "generated"))
     ap.add_argument("--offline", action="store_true")
+    ap.add_argument("--now", help="pin the render time (YYYY-MM-DDTHH:MM:SSZ), for reproducible output")
     args = ap.parse_args()
 
     cfg = json.loads((PROJECT / "profile.config.json").read_text())
     data = read_existing() if args.offline else collect(cfg, dt.date.today())
     write_cards(cfg, data)
-    render(Path(args.out))
+    now = (
+        dt.datetime.fromisoformat(args.now.replace("Z", "+00:00"))
+        if args.now
+        else dt.datetime.now(dt.timezone.utc)
+    )
+    render(Path(args.out), now)
     print(
         f"built {args.out}: hero.gif + {len(data['projects'])} project cards",
         file=sys.stderr,

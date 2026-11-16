@@ -1,7 +1,7 @@
 {
   "format": 1,
   "name": "Contact",
-  "canvas": { "width": 270, "height": 64, "background": "#0A1424" },
+  "canvas": { "width": 270, "height": 52, "background": "#00000000" },
   "fonts": {
     "mono": "assets/fonts/JetBrainsMono-Regular.ttf",
     "bold": "assets/fonts/JetBrainsMono-Bold.ttf",
@@ -9,15 +9,17 @@
   },
   "consts": {
     "c_bg": "#0A1424",
-    "c_panel": "#0F1D33",
-    "c_line": "#24456E",
-    "c_hair": "#8CCBF5",
-    "c_ice": "#C9EBFF",
-    "c_eye": "#2E9BE0",
-    "c_trim": "#D9E04A",
-    "c_muted": "#7E9CC0"
+    "c_panel": "match(mode, 'dark', #0F1D33B8, #DDE8F58C)",
+    "c_line": "match(mode, 'dark', #24456E, #9DB6D6)",
+    "c_hair": "match(mode, 'dark', #8CCBF5, #0B5CAD)",
+    "c_ice": "match(mode, 'dark', #C9EBFF, #0B1B33)",
+    "c_eye": "match(mode, 'dark', #2E9BE0, #0969DA)",
+    "c_trim": "match(mode, 'dark', #D9E04A, #B8A800)",
+    "c_muted": "match(mode, 'dark', #7E9CC0, #57606A)",
+    "c_pink": "#F7D7C9"
   },
   "params": {
+    "mode": { "type": "text", "default": "dark" },
     "label": { "type": "text", "default": "discord" },
     "value": { "type": "text", "default": "name" },
     "icon": { "type": "text", "default": "discord" }
@@ -26,14 +28,9 @@
     {
       "id": "box",
       "type": "rect",
-      "box": { "x": 0, "y": 0, "w": 270, "h": 64 },
-      "fill": "c_panel"
-    },
-    {
-      "id": "edge",
-      "type": "rect",
-      "box": { "x": 0, "y": 0, "w": 4, "h": 64 },
-      "fill": "c_eye"
+      "box": { "x": 0, "y": 0, "w": 270, "h": 52 },
+      "fill": "c_panel",
+      "stroke": { "color": "c_line", "width": 1 }
     },
     {
       "id": "ico",
@@ -41,13 +38,13 @@
       "src": "assets/icons/{icon}.svg",
       "optional": true,
       "fit": "contain",
-      "box": { "x": 16, "y": 19, "w": 28, "h": 28 }
+      "box": { "x": 14, "y": 13, "w": 26, "h": 26 }
     },
     {
       "id": "env_box",
       "type": "rect",
       "visible": "icon == 'mail'",
-      "box": { "x": 16, "y": 22, "w": 28, "h": 20 },
+      "box": { "x": 14, "y": 16, "w": 26, "h": 20 },
       "fill": "#00000000",
       "stroke": { "color": "c_hair", "width": 2 }
     },
@@ -56,7 +53,7 @@
       "type": "polygon",
       "visible": "icon == 'mail'",
       "closed": false,
-      "points": [[16, 22], [30, 34], [44, 22]],
+      "points": [[14, 16], [27, 27], [40, 16]],
       "stroke": { "color": "c_hair", "width": 2 }
     },
     {
@@ -64,8 +61,8 @@
       "type": "text",
       "font": "bold",
       "text": "{upper(label)}",
-      "at": { "x": 62, "y": 12 },
-      "size": 10,
+      "at": { "x": 54, "y": 9 },
+      "size": 9,
       "color": "c_muted"
     },
     {
@@ -73,18 +70,10 @@
       "type": "text",
       "font": "head",
       "text": "{value}",
-      "at": { "x": 62, "y": 28 },
-      "size": 19,
+      "at": { "x": 54, "y": 23 },
+      "size": 17,
       "color": "c_ice",
-      "max_width": 176
-    },
-    {
-      "id": "arrow",
-      "type": "polygon",
-      "shape": { "type": "arrow", "inner": 0.35 },
-      "box": { "x": 238, "y": 22, "w": 20, "h": 20 },
-      "fill": "c_trim",
-      "rotate": -45
+      "max_width": 204
     }
   ]
 }

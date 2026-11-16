@@ -8,7 +8,8 @@
       "name": "Yoshida",
       "kind": "oss",
       "blurb": "Overcomplicated card creator: JSON designs with formulas, rendered to PNG, SVG or PDF.",
-      "quip": "pretty proud of that one"
+      "quip": "pretty proud of that one",
+      "featured": true
     },
     {
       "repo": "school_reports",
@@ -47,5 +48,6 @@
       "login": "your-forgejo-user",
       "token_env": "FORGEJO_TOKEN"
     }
-  ]
+  ],
+  "intro": "I'm a German guy who is addicted to programming and anime, trying to learn Japanese on the side while also further increasing my knowledge in my techstack. I'm always open for contact, so just write me :D"
 }

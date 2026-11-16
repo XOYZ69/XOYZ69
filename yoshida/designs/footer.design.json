@@ -1,0 +1,30 @@
+{
+  "format": 1,
+  "name": "Footer",
+  "canvas": { "width": 830, "height": 40, "background": "#00000000" },
+  "fonts": {
+    "mono": "assets/fonts/JetBrainsMono-Regular.ttf",
+    "bold": "assets/fonts/JetBrainsMono-Bold.ttf",
+    "head": "assets/fonts/ChakraPetch-Bold.ttf"
+  },
+  "consts": {
+    "c_text": "match(mode, 'dark', #C9D7E8, #24292F)",
+    "c_dim": "match(mode, 'dark', #7E9CC0, #57606A)"
+  },
+  "params": {
+    "mode": { "type": "text", "default": "dark" },
+    "text": { "type": "text", "default": "Hello." }
+  },
+  "layers": [
+    {
+      "id": "t",
+      "type": "text",
+      "font": "mono",
+      "text": "rendered on {date_fmt(render.now, 'YYYY-MM-DD')} · {text}",
+      "at": { "x": 415, "y": 14 },
+      "size": 11,
+      "color": "c_dim",
+      "anchor": "top"
+    }
+  ]
+}

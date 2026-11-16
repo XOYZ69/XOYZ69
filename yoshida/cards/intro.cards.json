@@ -1,0 +1,16 @@
+{
+  "format": 1,
+  "design": "designs/intro.design.json",
+  "cards": [
+    {
+      "id": "intro-dark",
+      "mode": "dark",
+      "text": "I'm a German guy who is addicted to programming and anime, trying to learn Japanese on the side while also further increasing my knowledge in my techstack. I'm always open for contact, so just write me :D"
+    },
+    {
+      "id": "intro-light",
+      "mode": "light",
+      "text": "I'm a German guy who is addicted to programming and anime, trying to learn Japanese on the side while also further increasing my knowledge in my techstack. I'm always open for contact, so just write me :D"
+    }
+  ]
+}

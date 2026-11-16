@@ -1,0 +1,32 @@
+{
+  "format": 1,
+  "name": "Intro",
+  "canvas": { "width": 830, "height": 84, "background": "#00000000" },
+  "fonts": {
+    "mono": "assets/fonts/JetBrainsMono-Regular.ttf",
+    "bold": "assets/fonts/JetBrainsMono-Bold.ttf",
+    "head": "assets/fonts/ChakraPetch-Bold.ttf"
+  },
+  "consts": {
+    "c_text": "match(mode, 'dark', #C9D7E8, #24292F)",
+    "c_dim": "match(mode, 'dark', #7E9CC0, #57606A)"
+  },
+  "params": {
+    "mode": { "type": "text", "default": "dark" },
+    "text": { "type": "text", "default": "Hello." }
+  },
+  "layers": [
+    {
+      "id": "t",
+      "type": "text",
+      "font": "mono",
+      "text": "{text}",
+      "at": { "x": 0, "y": 10 },
+      "size": 14,
+      "color": "c_text",
+      "wrap": 830,
+      "line_spacing": 7,
+      "max_lines": 4
+    }
+  ]
+}

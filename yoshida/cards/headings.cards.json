@@ -2,8 +2,11 @@
   "format": 1,
   "design": "designs/heading.design.json",
   "cards": [
-    { "id": "skills", "idx": "//", "title": "user.get_techstack()" },
-    { "id": "projects", "idx": "//", "title": "user.get_projects()" },
-    { "id": "contact", "idx": "//", "title": "user.contact()" }
+    { "id": "skills-dark", "mode": "dark", "idx": "//", "title": "user.get_techstack()" },
+    { "id": "skills-light", "mode": "light", "idx": "//", "title": "user.get_techstack()" },
+    { "id": "projects-dark", "mode": "dark", "idx": "//", "title": "user.get_projects()" },
+    { "id": "projects-light", "mode": "light", "idx": "//", "title": "user.get_projects()" },
+    { "id": "contact-dark", "mode": "dark", "idx": "//", "title": "user.contact()" },
+    { "id": "contact-light", "mode": "light", "idx": "//", "title": "user.contact()" }
   ]
 }
