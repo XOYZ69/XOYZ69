@@ -6,12 +6,13 @@
       "id": "skills-dark",
       "mode": "dark",
       "main": [
+        { "name": "Bash", "icon": "gnubash", "meta": "2 repos · today", "trend": "rising" },
         { "name": "Python", "icon": "python", "meta": "6 repos · today", "trend": "steady" },
         { "name": "Zig", "icon": "zig", "meta": "2 repos · today", "trend": "rising" },
-        { "name": "Svelte", "icon": "", "meta": "1 repo · today", "trend": "rising" },
-        { "name": "Linux", "icon": "linux", "meta": "daily driver", "trend": "steady" }
+        { "name": "Svelte", "icon": "", "meta": "1 repo · today", "trend": "rising" }
       ],
       "sub": [
+        { "name": "Linux", "icon": "linux", "active": false },
         { "name": "C", "icon": "c", "active": true },
         { "name": "LaTeX", "icon": "latex", "active": false },
         { "name": "JavaScript", "icon": "javascript", "active": true },
@@ -25,12 +26,13 @@
       "id": "skills-light",
       "mode": "light",
       "main": [
+        { "name": "Bash", "icon": "gnubash", "meta": "2 repos · today", "trend": "rising" },
         { "name": "Python", "icon": "python", "meta": "6 repos · today", "trend": "steady" },
         { "name": "Zig", "icon": "zig", "meta": "2 repos · today", "trend": "rising" },
-        { "name": "Svelte", "icon": "", "meta": "1 repo · today", "trend": "rising" },
-        { "name": "Linux", "icon": "linux", "meta": "daily driver", "trend": "steady" }
+        { "name": "Svelte", "icon": "", "meta": "1 repo · today", "trend": "rising" }
       ],
       "sub": [
+        { "name": "Linux", "icon": "linux", "active": false },
         { "name": "C", "icon": "c", "active": true },
         { "name": "LaTeX", "icon": "latex", "active": false },
         { "name": "JavaScript", "icon": "javascript", "active": true },
