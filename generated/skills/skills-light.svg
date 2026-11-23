@@ -252,15 +252,11 @@
 <use xlink:href="#g0-618" transform="matrix(0.015 0 0 0.015 480.285 254.88)"/>
 </g>
 <path d="M633 232 L830 232 L830 266 L633 266 Z" fill="#dde8f5" fill-opacity="0.549" stroke="#9db6d6" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
-<g opacity="0.5">
 <use xlink:href="#p13" transform="matrix(0.25 0 0 0.25 645 240)"/>
-</g>
-<g opacity="0.5">
 <g fill="#0b1b33">
 <use xlink:href="#g0-141" transform="matrix(0.015 0 0 0.015 673 254.88)"/>
 <use xlink:href="#g0-376" transform="matrix(0.015 0 0 0.015 683.125 254.88)"/>
 <use xlink:href="#g0-359" transform="matrix(0.015 0 0 0.015 691.99 254.88)"/>
 <use xlink:href="#g0-368" transform="matrix(0.015 0 0 0.015 700.03 254.88)"/>
-</g>
 </g>
 </svg>

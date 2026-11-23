@@ -11,7 +11,7 @@
       "featured": true,
       "lang": "Zig",
       "lang_color": "#EC915C",
-      "version": "v0.8.0",
+      "version": "v0.9.0",
       "stage": "stable",
       "mode": "dark"
     },
@@ -24,7 +24,7 @@
       "featured": true,
       "lang": "Zig",
       "lang_color": "#EC915C",
-      "version": "v0.8.0",
+      "version": "v0.9.0",
       "stage": "stable",
       "mode": "light"
     },

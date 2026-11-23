@@ -19,7 +19,7 @@
         { "name": "Git", "icon": "git", "active": false },
         { "name": "TypeScript", "icon": "typescript", "active": true },
         { "name": "C++", "icon": "cplusplus", "active": true },
-        { "name": "Rust", "icon": "rust", "active": false }
+        { "name": "Rust", "icon": "rust", "active": true }
       ]
     },
     {
@@ -39,7 +39,7 @@
         { "name": "Git", "icon": "git", "active": false },
         { "name": "TypeScript", "icon": "typescript", "active": true },
         { "name": "C++", "icon": "cplusplus", "active": true },
-        { "name": "Rust", "icon": "rust", "active": false }
+        { "name": "Rust", "icon": "rust", "active": true }
       ]
     }
   ]
