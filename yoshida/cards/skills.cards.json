@@ -7,9 +7,9 @@
       "mode": "dark",
       "main": [
         { "name": "Bash", "icon": "gnubash", "meta": "2 repos · today", "trend": "rising" },
-        { "name": "Python", "icon": "python", "meta": "6 repos · 1d ago", "trend": "steady" },
-        { "name": "Zig", "icon": "zig", "meta": "2 repos · 1d ago", "trend": "rising" },
-        { "name": "Svelte", "icon": "", "meta": "1 repo · 1d ago", "trend": "rising" }
+        { "name": "Python", "icon": "python", "meta": "6 repos · today", "trend": "steady" },
+        { "name": "Zig", "icon": "zig", "meta": "2 repos · today", "trend": "rising" },
+        { "name": "Svelte", "icon": "", "meta": "1 repo · today", "trend": "rising" }
       ],
       "sub": [
         { "name": "Linux", "icon": "linux", "active": false },
@@ -27,9 +27,9 @@
       "mode": "light",
       "main": [
         { "name": "Bash", "icon": "gnubash", "meta": "2 repos · today", "trend": "rising" },
-        { "name": "Python", "icon": "python", "meta": "6 repos · 1d ago", "trend": "steady" },
-        { "name": "Zig", "icon": "zig", "meta": "2 repos · 1d ago", "trend": "rising" },
-        { "name": "Svelte", "icon": "", "meta": "1 repo · 1d ago", "trend": "rising" }
+        { "name": "Python", "icon": "python", "meta": "6 repos · today", "trend": "steady" },
+        { "name": "Zig", "icon": "zig", "meta": "2 repos · today", "trend": "rising" },
+        { "name": "Svelte", "icon": "", "meta": "1 repo · today", "trend": "rising" }
       ],
       "sub": [
         { "name": "Linux", "icon": "linux", "active": false },
