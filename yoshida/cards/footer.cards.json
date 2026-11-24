@@ -5,12 +5,12 @@
     {
       "id": "footer-dark",
       "mode": "dark",
-      "text": "cards drawn with Yoshida 0.8.0, rebuilt daily, nya~"
+      "text": "cards drawn with Yoshida 0.9.0, rebuilt daily, nya~"
     },
     {
       "id": "footer-light",
       "mode": "light",
-      "text": "cards drawn with Yoshida 0.8.0, rebuilt daily, nya~"
+      "text": "cards drawn with Yoshida 0.9.0, rebuilt daily, nya~"
     }
   ]
 }
